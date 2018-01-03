@@ -4,32 +4,59 @@ import pdb
 from datetime import date, datetime
 import json
 from movie_tracker.models import *
+import pandas as pd
+
+MOVIES = 'tmdb-5000-movie-dataset/tmdb_5000_movies.csv'
+CREDITS = 'tmdb-5000-movie-dataset/tmdb_5000_credits.csv'
 
 
 def load_data():
-    movies = 'tmdb-5000-movie-dataset/tmdb_5000_movies.csv'
-    credits = 'tmdb-5000-movie-dataset/tmdb_5000_credits.csv'
-    with open(movies) as movie_file, open(credits) as credits_file:
-        reader = csv.DictReader(movie_file)
-        # title release data runtime genres budget keywords overview tagline
-        return [(movie_dict(row), keywords(row)) for row in reader]
+    movies_data = pd.read_csv(MOVIES)
+
+    movies = load_movies(movies_data)
+    keywords = load_keywords(movies_data)
+
+    credits = pd.read_csv(CREDITS)
+    credits['id'] = credits['movie_id']
+    movies_data = pd.merge(movies_data, credits, on=['id', 'title'])
+
+    actors = load_actors(movies_data)
+
+    return pd.DataFrame({ 'movies': movies, 'keywords': keywords, 'actors': actors })
 
 
-def movie_dict(row):
-    return {
+def load_keywords(movies):
+    return movies['keywords'].apply(lambda row: json.loads(row))
+
+
+def load_actors(movies):
+    return movies['cast'].apply(lambda row: parse_actors(row))
+
+
+def parse_actors(row):
+    actors = json.loads(row)
+
+    return [{ 'name': actor['name'], 'character': actor['character'] } for actor in actors]
+
+
+def load_movies(movies):
+    movies['genres'] = movies['genres'].apply(
+        lambda row: ', '.join([genre['name'] for genre in json.loads(row)]))
+
+    movies['release_date'] = movies['release_date'].dropna().apply(lambda row: format_date((row)))
+
+    movies['movie'] = movies.apply(lambda row: {
         'id': row['id'],
         'title': row['title'],
-        'release_date': format_date(row['release_date']),
+        'release_date': row['release_date'],
         'runtime': row['runtime'],
         'overview': row['overview'],
         'tagline': row['tagline'],
         'budget': row['budget'],
-        'genres': extract_genres(row['genres']),
-    }
+        'genres': row['genres'],
+    }, axis=1)
 
-
-def keywords(row):
-    return json.loads(row['keywords'])
+    return movies['movie']
 
 
 def format_date(raw_date):
@@ -40,22 +67,34 @@ def format_date(raw_date):
     return date.date()
 
 
-def extract_genres(data_json):
-    genres = json.loads(data_json)
+def create_objects(row):
+    movie_data = row['movies']
+    keywords_data = row['keywords']
+    actors_data = row['actors']
 
-    return ', '.join([genre['name'] for genre in genres])
+    movie = Movie(**movie_data)
+    movie.save()
+
+    keywords = []
+    for keyword_data in keywords_data:
+        keywords.append(Keyword.objects.get_or_create(**keyword_data)[0])
+    movie.keywords = keywords
+
+    actors = []
+    for actor_data in actors_data:
+        actor = Actor.objects.get_or_create(name=actor_data['name'])[0]
+        actors.append(actor)
+        # ActorMovie(actor_id=actor.id, movie_id=movie.id, character=actor_data['character']).save()
+
+    movie.actors = actors
+    movie.save()
 
 
 def main():
-    for movie_data, keywords_data in load_data():
-        movie = Movie(**movie_data)
-        movie.save()
-
-        keywords = []
-        for keyword_data in keywords_data:
-            keywords.append(Keyword.objects.get_or_create(**keyword_data)[0])
-        movie.keywords = keywords
-        print 'success'
+    data = load_data()
+    for index, row in data.iterrows():
+        print('start for {0}'.format(index))
+        create_objects(row)
 
 
 if __name__ == "__main__":
