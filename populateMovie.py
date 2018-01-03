@@ -91,7 +91,7 @@ def create_objects(row):
 
 
 def main():
-    data = load_data()
+    data = load_data()[:500]
     for index, row in data.iterrows():
         print('start for {0}'.format(index))
         create_objects(row)
