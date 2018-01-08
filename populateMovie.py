@@ -13,16 +13,27 @@ CREDITS = 'tmdb-5000-movie-dataset/tmdb_5000_credits.csv'
 def load_data():
     movies_data = pd.read_csv(MOVIES)
 
+    # movies_data = decode_data(movies_data)
+
     movies = load_movies(movies_data)
     keywords = load_keywords(movies_data)
 
     credits = pd.read_csv(CREDITS)
+    # credits = decode_data(credits)
+
     credits['id'] = credits['movie_id']
-    movies_data = pd.merge(movies_data, credits, on=['id', 'title'])
+    movies_data = pd.merge(movies_data, credits, on = ['id', 'title'])
 
     actors = load_actors(movies_data)
 
     return pd.DataFrame({ 'movies': movies, 'keywords': keywords, 'actors': actors })
+
+
+def decode_data(data):
+    for k in data.select_dtypes(['object']).keys():
+        data[k] = data[k].apply(lambda x: x.decode('utf-8').strip())
+
+    return data
 
 
 def load_keywords(movies):
@@ -54,7 +65,7 @@ def load_movies(movies):
         'tagline': row['tagline'],
         'budget': row['budget'],
         'genres': row['genres'],
-    }, axis=1)
+    }, axis = 1)
 
     return movies['movie']
 
@@ -82,7 +93,7 @@ def create_objects(row):
 
     actors = []
     for actor_data in actors_data:
-        actor = Actor.objects.get_or_create(name=actor_data['name'])[0]
+        actor = Actor.objects.get_or_create(name = actor_data['name'])[0]
         actors.append(actor)
         # ActorMovie(actor_id=actor.id, movie_id=movie.id, character=actor_data['character']).save()
 

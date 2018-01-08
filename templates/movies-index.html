@@ -1,0 +1,7 @@
+{% extends 'layout.html' %}
+{% block title %} ceva {% endblock %}
+{% block content %}
+    {% for movie in movies %}
+        {{ movie.title }}
+    {% endfor %}
+{% endblock %}

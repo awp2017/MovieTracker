@@ -10,14 +10,14 @@ class Actor(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf-8')
 
 
 class Keyword(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return self.name.encode('utf-8')
 
 
 class Movie(models.Model):
@@ -32,7 +32,7 @@ class Movie(models.Model):
     keywords = models.ManyToManyField(Keyword, blank=True)
 
     def __str__(self):
-        return self.title
+        return self.title.encode('utf-8')
 #
 #
 # class ActorMovie(models.Model):
