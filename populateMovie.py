@@ -5,20 +5,24 @@ from datetime import date, datetime
 import json
 from movie_tracker.models import *
 import pandas as pd
+import tmdbsimple as tmdb
 
 MOVIES = 'tmdb-5000-movie-dataset/tmdb_5000_movies.csv'
 CREDITS = 'tmdb-5000-movie-dataset/tmdb_5000_credits.csv'
+tmdb.API_KEY = '3cfdb6d49ad9aa0736b9e2c49d6b20ab'
+search = tmdb.Search()
+POSTER_PATH = 'http://image.tmdb.org/t/p/w185/'
 
 
 def load_data():
-    movies_data = pd.read_csv(MOVIES)
+    movies_data = pd.read_csv(MOVIES)[:10]
 
     # movies_data = decode_data(movies_data)
 
     movies = load_movies(movies_data)
     keywords = load_keywords(movies_data)
 
-    credits = pd.read_csv(CREDITS)
+    credits = pd.read_csv(CREDITS)[:10]
     # credits = decode_data(credits)
 
     credits['id'] = credits['movie_id']
@@ -56,6 +60,8 @@ def load_movies(movies):
 
     movies['release_date'] = movies['release_date'].dropna().apply(lambda row: format_date((row)))
 
+    movies['poster'] = movies['title'].apply(lambda title: get_poster(title))
+
     movies['movie'] = movies.apply(lambda row: {
         'id': row['id'],
         'title': row['title'],
@@ -65,9 +71,24 @@ def load_movies(movies):
         'tagline': row['tagline'],
         'budget': row['budget'],
         'genres': row['genres'],
+        'poster': row['poster'],
     }, axis = 1)
 
     return movies['movie']
+
+
+def get_poster(title):
+    data = search.movie(query = title)
+
+    if data['total_results'] == 0:
+        return None
+
+    poster = data['results'][0].get('poster_path', None)
+
+    if poster != None:
+        poster = POSTER_PATH + poster
+
+    return poster
 
 
 def format_date(raw_date):
@@ -102,7 +123,7 @@ def create_objects(row):
 
 
 def main():
-    data = load_data()[:500]
+    data = load_data()
     for index, row in data.iterrows():
         print('start for {0}'.format(index))
         create_objects(row)

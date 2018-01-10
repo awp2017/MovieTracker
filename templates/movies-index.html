@@ -3,5 +3,8 @@
 {% block content %}
     {% for movie in movies %}
         {{ movie.title }}
+        {{ movie.poster }}
+        <img src={{ movie.poster }}>
+        <hr/>
     {% endfor %}
 {% endblock %}
