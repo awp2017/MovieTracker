@@ -28,6 +28,7 @@ class Movie(models.Model):
     budget = models.IntegerField()
     overview = models.CharField(max_length=2000)
     tagline = models.CharField(max_length=2000)
+    poster = models.CharField(max_length=2000, null=True)
     actors = models.ManyToManyField(Actor, blank=True)
     keywords = models.ManyToManyField(Keyword, blank=True)
 
