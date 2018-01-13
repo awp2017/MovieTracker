@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^/movies/(?P<pk_movie>[0-9]+)/actors/$', MoviesIndex.as_view(), name='movie_actors'),
     url(r'^/actors/', MoviesIndex.as_view(), name='actors_index'),
     url(r'^/actors/(?P<pk>[0-9]+)/$', MoviesIndex.as_view(), name='actors_show'),
-    url(r'^/users/(?P<pk>[0-9]+)/watched$', MoviesIndex.as_view(),name='movies_watched'),
+    url(r'^/watched$', MoviesIndex.as_view(),name='movies_watched'),
 ]
 
