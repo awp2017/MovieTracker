@@ -1,15 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    {{ actor.name }}
+
+    <h4>{{ actor.name }}</h4>
     <hr/>
-    {% for movie in actor.movie_set.all %}
 
-        {{ movie.title }}
-        {{ movie.poster }}
-    {% endfor %}
+    <h4>Movies where he played:</h4>
+    <div class="row">
+        {% for movie in actor.movie_set.all %}
+
+            <div class="col-md-2 tvshow-card-container">
+                <a href="{% url 'movies_show' pk=movie.pk %}">
+                    <div class="thumbnail tvshow-card">
+                        <div class="poster-container">
+                            <img class="tvshow-poster" src="{{ movie.poster }}" alt="tvshow-image">
+                        </div>
+                        <div class="caption">
+                            <h4 class="tvshow-title">{{ movie.title }} ({{ movie.release_date }})</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 
 
 
-    <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
 {% endblock %}
