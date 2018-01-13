@@ -6,9 +6,12 @@ from django.views.generic import View
 from movie_tracker.models import *
 from django.shortcuts import render, redirect
 from movie_tracker.forms import *
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class Watchlist(View):
+    @method_decorator(login_required(login_url='login'))
     def get(self, request, *args, **kwargs):
         request.user
         watched = UserMovie.objects.filter(user=request.user, status=UserMovie.WATCHED)
@@ -16,6 +19,7 @@ class Watchlist(View):
 
         return render(request, "watchlist/index.html", { 'watched': watched, 'not_watched': not_watched })
 
+    @method_decorator(login_required(login_url='login'))
     def post(self, request, *args, **kwargs):
         movie_id = request.GET.get('movie_id')
         movie_id = int(movie_id)
@@ -41,7 +45,6 @@ def watch_movie(user, movie_id):
     user_movie = UserMovie.objects.get(user=user, movie_id=movie_id)
     user_movie.status = user_movie.WATCHED
     user_movie.save()
-
 
 def unwatch_movie(user, movie_id):
     user_movie = UserMovie.objects.get(user=user, movie_id=movie_id)
