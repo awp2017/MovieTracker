@@ -10,6 +10,13 @@
                 <h1>
                     {{ movie.title }}
                 </h1>
+
+                <form method="post" action="{% url 'watchlist' %}?movie_id={{ movie.pk }}">
+                    {% csrf_token %}
+                    <input name="opt" type="hidden" value="add">
+                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i>
+                    </button>
+                </form>
                 <h3>Overview</h3>
                 <p>
                     {{ movie.overview }}
@@ -101,10 +108,4 @@
 
     </div>
 
-    <form method="post" action="{% url 'watchlist' %}?movie_id={{ movie.pk }}">
-        {% csrf_token %}
-        <input name="opt" type="hidden" value="add">
-        <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-eye-close"></i>
-        </button>
-    </form>
 {% endblock %}
