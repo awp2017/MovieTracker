@@ -9,37 +9,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-          integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.4/moment.min.js"></script>
-    <script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}movie_tracker/style.css" type="text/css">
-<style>
-    body{
-        padding: 70px;
-    }
-</style>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><script src="https://use.fontawesome.com/311343f11c.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arimo|Arvo|Lato|Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <script src="{% static 'js/script.js' %}"></script>
+
+
 </head>
 
 <body>
-{% include 'menu.html' %}
-<div class="container">
-<div class="container">
+<!-- HEADER -->
+<header class="col-lg-12 col-md-12 col-sm-12 col-xs-12 header">
+  <i class="glyphicon glyphicon-menu-hamburger test"></i>
+</header>
+<!-- END HEADER -->
 
-    {% block content %}{% endblock %}
-</div>
+<!-- NAVIGATION SIDEBAR -->
+<div class="sidebar-wrapper col-lg-3 col-md-3 col-sm-12 col-xs-12">
+  <div class="sidebar-header">
+    <span class="title" id="target">Movie Tracker</span>
+    <i class="glyphicon glyphicon-remove test2"></i>
+  </div>
+  <!-- USER PROFILE -->
+  <div>
+    <div class="sidebar-userprofile">
+      <!-- CUSTOM USER PROFILE BACKGROUND -->
+      <div class="background">
+      </div>
 
+      <!-- CUSTOM USER PROFILE AVATAR -->
+      <div class="avatar">
+
+      </div>
+      <!-- USER PROFILE MESSAGE -->
+      <div class="message">
+        Hi, Guest!
+      </div>
+    </div>
+  </div>
+  <!-- END USER PROFILE -->
+
+  <!-- SIDEBAR MENU -->
+  <div class="sidebar-menu">
+    <ul class="nav">
+      <!-- LINK TO HOME PAGE -->
+      <li class="active">
+        <a href="#">
+          <i class="glyphicon glyphicon-home"></i>
+          All Movies </a>
+      </li>
+      <!-- LINK TO MY ACCOUNT PAGE -->
+      <li>
+           <a href="#">
+            <i class="glyphicon glyphicon-user"></i>
+            My Profile</a>
+      </li>
+      <!-- LINK TO USER'S WATCHLIST -->
+      <li>
+        <a href="#">
+          <i class="glyphicon glyphicon-eye-open"></i>
+          Watchlist </a>
+      </li>
+
+    </ul>
+  </div>
+  <!-- END SIDEBAR MENU -->
 </div>
+<!-- END NAVIGATION SIDEBAR -->
+<!-- PAGE CONTENT -->
+
+
+<main class="col-lg-9 col-md-9 col-sm-12 col-xs-12 main-content">
+   {% block content %}{% endblock %}
+</main>
+<!-- END PAGE CONTENT -->
+
+<!-- SCRIPTS -->
 {% block scripts %}{% endblock %}
-</body>
+<!-- END SCRIPTS -->
 
+</body>
 </html>

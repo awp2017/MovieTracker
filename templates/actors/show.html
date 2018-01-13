@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {{ actor.name }}
+    <hr/>
+    {% for movie in actor.movie_set.all %}
+
+        {{ movie.title }}
+        {{ movie.poster }}
+    {% endfor %}
+
+
+
+    <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+{% endblock %}
