@@ -13,6 +13,13 @@ class Index(ListView):
     context_object_name = 'movies'
     paginate_by = 10
 
+    def get_queryset(self):
+        title = self.request.GET.get('movie', '')
+        keyword = self.request.GET.get('keyword', '')
+
+        return self.model.objects.filter(title__contains=title, keywords__name__contains=keyword)
+
+
 class MovieDetailView(DetailView):
     template_name = 'movies/show.html'
     model = Movie
