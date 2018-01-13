@@ -52,7 +52,7 @@
                 </div>
             {% endfor %}
         </div>
-                <hr/>
+        <hr/>
         <br/>
         <div class="row">
             {% if user.is_authenticated %}
@@ -101,8 +101,10 @@
 
     </div>
 
-<form method="post" action="{% url 'watchlist'%}?movie_id={{ movie.pk }}">
-    {% csrf_token %}
-    <button type="submit">Add To Watchlist</button>
-</form>
+    <form method="post" action="{% url 'watchlist' %}?movie_id={{ movie.pk }}">
+        {% csrf_token %}
+        <input name="opt" type="hidden" value="add">
+        <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-eye-close"></i>
+        </button>
+    </form>
 {% endblock %}

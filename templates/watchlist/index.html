@@ -1,44 +1,56 @@
 {% extends 'layout.html' %}
 {% block content %}
-{% load static %}
+    {% load static %}
 
-<h1>Not Watched:</h1>
-<br>
-<div class="row">
- {% for user_movie in not_watched %}
-      <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 tvshow-card-container" >
-        <a href ="#">
-          <div class = "thumbnail tvshow-card" >
-            <div class="poster-container">
-                <img class = "tvshow-poster" src = "{{ user_movie.movie.poster }}" alt = "tvshow-image" >
+    <h1>Not Watched:</h1>
+    <br>
+    <div class="row">
+        {% for user_movie in not_watched %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 tvshow-card-container">
+                <a href="#">
+                    <div class="thumbnail tvshow-card">
+                        <div class="poster-container">
+                            <img class="tvshow-poster" src="{{ user_movie.movie.poster }}" alt="tvshow-image">
+                        </div>
+                        <div class="caption">
+                            <h4 class="tvshow-title">{{ user_movie.movie.title }}</h4>
+                        </div>
+                        <form method="post" action="{% url 'watchlist' %}?movie_id={{ user_movie.movie.pk }}">
+                            {% csrf_token %}
+                            <input name="opt" type="hidden" value="watch">
+                            <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i>
+                            </button>
+                        </form>
+                    </div>
+                </a>
             </div>
-            <div class = "caption" >
-              <h4 class = "tvshow-title" >{{ user_movie.movie.title }}</h4 >
-            </div >
-          </div >
-        </a >
-      </div >
-{% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
-<h1>Watched:</h1>
-<br>
-<div class="row">
- {% for user_movie in watched %}
-      <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 tvshow-card-container" >
-        <a href ="#">
-          <div class = "thumbnail tvshow-card" >
-            <div class="poster-container">
-                <img class = "tvshow-poster" src = "{{ user_movie.movie.poster }}" alt = "tvshow-image" >
+    <h1>Watched:</h1>
+    <br>
+    <div class="row">
+        {% for user_movie in watched %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 tvshow-card-container">
+                <a href="#">
+                    <div class="thumbnail tvshow-card">
+                        <div class="poster-container">
+                            <img class="tvshow-poster" src="{{ user_movie.movie.poster }}" alt="tvshow-image">
+                        </div>
+                        <div class="caption">
+                            <h4 class="tvshow-title">{{ user_movie.movie.title }}</h4>
+                        </div>
+                        <form method="post" action="{% url 'watchlist' %}?movie_id={{ user_movie.movie.pk }}">
+                            {% csrf_token %}
+                            <input name="opt" type="hidden" value="unwatch">
+                            <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-eye-close"></i>
+                            </button>
+                        </form>
+                    </div>
+                </a>
             </div>
-            <div class = "caption" >
-              <h4 class = "tvshow-title" >{{ user_movie.movie.title }}</h4 >
-            </div >
-          </div >
-        </a >
-      </div >
-{% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
 {% endblock %}
 

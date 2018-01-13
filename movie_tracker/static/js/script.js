@@ -6,4 +6,6 @@ $(document).ready(function(){
     $(".glyphicon-remove" ).click(function() {
         $(".sidebar-wrapper").hide();
     });
+
+
 });
