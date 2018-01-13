@@ -12,7 +12,7 @@ class Index(ListView):
     model = Movie
     template_name = 'movies/index.html'
     context_object_name = 'movies'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
         title = self.request.GET.get('movie', '')
