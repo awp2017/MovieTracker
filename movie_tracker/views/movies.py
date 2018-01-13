@@ -24,7 +24,10 @@ class Index(ListView):
 class MovieDetailView(View):
     def get(self, request, pk):
         movie = Movie.objects.get(id=pk)
-        watched = Movie.objects.get(pk=pk).usermovie_set.filter(user=request.user).exists()
+        if request.user.is_authenticated:
+            watched = Movie.objects.get(pk=pk).usermovie_set.filter(user=request.user).exists()
+        else: 
+            watched = None
         comments = Comment.objects.filter(movie=pk).order_by('-date')
         return render(
             request,
