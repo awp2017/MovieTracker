@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, View
 from movie_tracker.models import *
+from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
 
 
@@ -35,3 +36,10 @@ class CommentsIndex(View):
             context={'comments': comments,
                      'movie': movie}
         )
+
+    def post(self, request, pk):
+        movie_instance = Movie.objects.get(id=pk)
+        user_instance = User.objects.get(id=request.user.id)
+        comment = Comment(movie=movie_instance, user=user_instance, text=request.POST.get('comment',''))
+        comment.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
