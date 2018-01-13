@@ -4,16 +4,18 @@
     <div class="container">
         <div class="row">
             {% for movie in movies %}
-                  <div class="col-md-3 col-sm-4 col-xs-6">
-                      <figure>
-                        <a href="{{ movie.id }}">
-                            <img src={{ movie.poster }}>
-                        </a>
-                          <figcaption>
-                            <a href="{{ movie.id }}" class="thumbnail purple">{{ movie.title }}</a>
-                          </figcaption>
-                      </figure>
-                  </div>
+                  <div class = "col-md-3 col-sm-4 col-xs-6 tvshow-card-container" >
+                    <a href ="{{ movie.id }}">
+                      <div class = "thumbnail tvshow-card" >
+                        <div class="poster-container">
+                            <img class = "tvshow-poster" src = "{{ movie.poster }}" alt = "tvshow-image" >
+                        </div>
+                        <div class = "caption" >
+                          <h4 class = "tvshow-title" >{{ movie.title }}</h4 >
+                        </div >
+                      </div >
+                    </a >
+                  </div >
             {% endfor %}
         </div>
     </div>

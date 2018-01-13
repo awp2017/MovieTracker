@@ -115,6 +115,10 @@ body {
   text-align: center;
 }
 
+.moviedetails {
+  background-color: #337ab7;
+}
+
 .sidebar-wrapper .sidebar-header i.glyphicon-remove {
   display: none;
   font-size: 2.2em;
@@ -200,6 +204,7 @@ body {
 .tvshow-card-container {
   display: inline;
   float: left;
+  width: 20%;
 }
 
 /* for large devices - watchlist(4 columns) */
