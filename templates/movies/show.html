@@ -2,49 +2,38 @@
 {% block title %} {{ movie.title }} {% endblock %}
 {% block content %}
     <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src={{ movie.poster }}>
-                </div>
-                <div class="col-md-8">
-                    <h1>
-                        {{movie.title}}
-                    </h1>
-                    <h3>Overview</h3>
-                    <p>
-                        {{movie.overview}}
-                    </p>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h3>
-                                Release Date
-                            </h3>
-                            <p>
-                                {{movie.release_date}}
-                            </p>
-                        </div>
+        <div class="row">
+            <div class="col-md-2"><img src={{ movie.poster }}></div>
+            <div class="col-md-8">
+                <h1>{{ movie.title }}</h1>
+                <h3>Overview</h3>
+                <p>{{ movie.overview }}</p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3>Release Date</h3>
+                        <p>{{ movie.release_date }}</p>
+                    </div>
 
-                        <div class="col-md-2">
-                            <h3>
-                                Budget
-                            </h3>
-                            <p>
-                                {{movie.budget}}$
-                            </p>
-                        </div>
+                    <div class="col-md-2">
+                        <h3>Budget</h3>
+                        <p>{{ movie.budget }}$</p>
+                    </div>
 
-                        <div class="col-md-6">
-                            <h3>
-                                Tagline
-                            </h3>
-                            <p>
-                                {{movie.tagline}}
-                            </p>
-                        </div>
+                    <div class="col-md-6">
+                        <h3>Tagline</h3>
+                        <p>{{ movie.tagline }}</p>
                     </div>
                 </div>
             </div>
-        <hr>
+        </div>
+        <div class="row-md-2">
+            {% for actor in movie.actors.all %}
+                <div class="col-md-2">
+                    <a href="{% url 'actors_show' pk=actor.id %}">{{ actor.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        <hr/>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <a href="comments" class="btn btn-info">

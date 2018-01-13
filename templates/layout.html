@@ -87,7 +87,7 @@
             <!-- USER PROFILE MESSAGE -->
             <div class="message">
                 {% if user.is_authenticated %}
-                    Hi, {{ request.user.last_name }} {{ request.user.first_name }}!
+                    Hi, {{ request.user.get_full_name }}!
                 {% else %}
                     Hi, Guest!
                 {% endif %}
