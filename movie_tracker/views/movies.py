@@ -8,13 +8,12 @@ from django.core.paginator import Paginator
 
 
 class Index(ListView):
-    model = Actor
-    template_name = 'actors/index.html'
-    context_object_name = 'actors'
+    model = Movie
+    template_name = 'movies/index.html'
+    context_object_name = 'movies'
     paginate_by = 10
 
-
-class Show(DetailView):
-    model = Actor
-    template_name = 'actors/show.html'
-    context_object_name = 'actor'
+class MovieDetailView(DetailView):
+    template_name = 'movies/show.html'
+    model = Movie
+    context_object_name = 'movie'
