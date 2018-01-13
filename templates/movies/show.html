@@ -53,15 +53,16 @@
             </div>
         </div>
         <hr>
-        <div class="row-md-2">
+        <div class="row col-md-9" style="width:100%">
             {% for actor in movie.actors.all %}
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <a href="{% url 'actors_show' pk=actor.id %}">{{ actor.name }}</a>
                 </div>
             {% endfor %}
         </div>
         <hr/>
         <br/>
+
         <div class="row">
             {% if user.is_authenticated %}
                 <form action="" method="post">
@@ -79,7 +80,8 @@
             {% endif %}
 
             <br>
-
+            <br>
+             <br>
             {% for comment in comments %}
                 <div class="row">
                     <div class="col-sm-1">
@@ -103,6 +105,7 @@
                         </div>
                     </div>
                 </div>
+            <br/>
             {% endfor %}
         </div>
 
