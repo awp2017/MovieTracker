@@ -53,4 +53,9 @@
             </div>
         </div>
     </div>
+
+<form method="post" action="{% url 'watchlist'%}?movie_id={{ movie.pk }}">
+    {% csrf_token %}
+    <button type="submit">Add To Watchlist</button>
+</form>
 {% endblock %}

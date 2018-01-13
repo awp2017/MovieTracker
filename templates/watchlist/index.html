@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<h1>Not Watched:</h1>
+<br>
+<div class="row">
+ {% for user_movie in not_watched %}
+      <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 tvshow-card-container" >
+        <a href ="#">
+          <div class = "thumbnail tvshow-card" >
+            <div class="poster-container">
+                <img class = "tvshow-poster" src = "{{ user_movie.movie.poster }}" alt = "tvshow-image" >
+            </div>
+            <div class = "caption" >
+              <h4 class = "tvshow-title" >{{ user_movie.movie.title }}</h4 >
+            </div >
+          </div >
+        </a >
+      </div >
+{% endfor %}
+</div>
+
+<h1>Watched:</h1>
+<br>
+<div class="row">
+ {% for user_movie in watched %}
+      <div class = "col-lg-3 col-md-4 col-sm-6 col-xs-12 tvshow-card-container" >
+        <a href ="#">
+          <div class = "thumbnail tvshow-card" >
+            <div class="poster-container">
+                <img class = "tvshow-poster" src = "{{ user_movie.movie.poster }}" alt = "tvshow-image" >
+            </div>
+            <div class = "caption" >
+              <h4 class = "tvshow-title" >{{ user_movie.movie.title }}</h4 >
+            </div >
+          </div >
+        </a >
+      </div >
+{% endfor %}
+</div>
+
+{% endblock %}
+

@@ -6,6 +6,7 @@ from views.actions import search
 import views.test as test
 import views.signup as signup
 from django.contrib.auth import views as auth_views
+import views.watchlist as watchlist
 
 urlpatterns = [
     url(r'^movies/$', movies.Index.as_view(), name='movies_index'),
@@ -19,5 +20,6 @@ urlpatterns = [
     url(r'^signup/$', signup.SignUp.as_view(), name='signup'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': 'movies_index'}, name='logout'),
+    url(r'^watchlist/$', watchlist.Watchlist.as_view(), name='watchlist'),
 ]
 

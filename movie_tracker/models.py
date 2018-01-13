@@ -44,7 +44,18 @@ class Comment(models.Model):
 #     character = models.CharField(max_length=200)
 
 
-class Watched(models.Model):
-    watched = models.BooleanField(default=False)
+class UserMovie(models.Model):
+    WATCHED = 'watched'
+    NOT_WATCHED = 'not_watched'
+    STATUS_CHOICES = (
+        (WATCHED, 'Watched'),
+        (NOT_WATCHED, 'Not Watched'),
+    )
+
+    status = models.TextField(
+        max_length=2,
+        choices=STATUS_CHOICES,
+        default=NOT_WATCHED,
+    )
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
