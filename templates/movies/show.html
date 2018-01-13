@@ -53,9 +53,9 @@
             </div>
         </div>
         <hr>
-        <div class="row col-md-9" style="width:100%">
+        <div class="row col-md-9" style="clear: both">
             {% for actor in movie.actors.all %}
-                <div class="col-md-3">
+                <div class="col-md-3" style="float:left">
                     <a href="{% url 'actors_show' pk=actor.id %}">{{ actor.name }}</a>
                 </div>
             {% endfor %}
@@ -63,53 +63,50 @@
         <hr/>
         <br/>
 
-        <div class="row">
-            {% if user.is_authenticated %}
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="comment">Comment:</label>
-                                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
-                            </div>
+
+        {% if user.is_authenticated %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </form>
-            {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        {% endif %}
 
             <br>
             <br>
              <br>
-            {% for comment in comments %}
-                <div class="row">
-                    <div class="col-sm-1">
-                        <div class="thumbnail">
-                            <img class="img-responsive user-photo"
-                                 src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                        </div>
+    <div style="clear:both;">
+        {% for comment in comments %}
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="thumbnail">
+                        <img class="img-responsive user-photo"
+                             src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
                     </div>
+                </div>
 
-                    <div class="col-sm-5">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <strong>{{ comment.user.username }}</strong>
-                                <div class="pull-right">
-                                    {{ comment.date }}
-                                </div>
+                <div class="col-sm-5">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>{{ comment.user.username }}</strong>
+                            <div class="pull-right">
+                                {{ comment.date }}
                             </div>
-                            <div class="panel-body">
-                                {{ comment.text }}
-                            </div>
+                        </div>
+                        <div class="panel-body">
+                            {{ comment.text }}
                         </div>
                     </div>
                 </div>
-            <br/>
-            {% endfor %}
-        </div>
-
-
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
