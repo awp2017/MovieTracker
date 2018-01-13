@@ -18,7 +18,7 @@ class Index(ListView):
     def get_queryset(self):
         name = self.request.GET.get('actor','')
 
-        return self.model.objects.filter(name__contains=name)
+        return self.model.objects.filter(name__icontains=name)
 
 
 class Show(DetailView):
