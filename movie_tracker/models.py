@@ -12,13 +12,11 @@ class Actor(models.Model):
     def __str__(self):
         return self.name.encode('utf-8')
 
-
 class Keyword(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name.encode('utf-8')
-
 
 class Movie(models.Model):
     title = models.CharField(max_length=200)
@@ -34,8 +32,12 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.title.encode('utf-8')
-#
-#
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    text = models.CharField(max_length=2000)
+
 # class ActorMovie(models.Model):
 #     actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
 #     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
