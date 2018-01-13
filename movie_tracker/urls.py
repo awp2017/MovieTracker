@@ -4,6 +4,8 @@ import views.actors as actors
 import views.movies as movies
 from views.actions import search
 import views.test as test
+import views.signup as signup
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^movies/$', movies.Index.as_view(), name='movies_index'),
@@ -14,7 +16,8 @@ urlpatterns = [
     url(r'^actors/(?P<pk>[0-9]+)/$', actors.Show.as_view(), name='actors_show'),
     url(r'^watched/$', actors.Index.as_view(),name='movies_watched'),
     url(r'^search/$', search, name='search'),
-    url(r'^test/$', test.Test.as_view(), name='test'),
-
+    url(r'^signup/$', signup.SignUp.as_view(), name='signup'),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': 'movies_index'}, name='logout'),
 ]
 

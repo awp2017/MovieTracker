@@ -233,4 +233,9 @@ body {
   min-height: 320px;
 }
 
+.auth-button
+{
+    margin:5px;
+}
+
 
