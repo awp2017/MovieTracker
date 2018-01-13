@@ -10,13 +10,17 @@
                 <h1>
                     {{ movie.title }}
                 </h1>
-                    {% if user.is_authenticated %}
-                <form method="post" action="{% url 'watchlist' %}?movie_id={{ movie.pk }}">
-                    {% csrf_token %}
-                    <input name="opt" type="hidden" value="add">
-                    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i>
-                    </button>
-                </form>
+                {% if user.is_authenticated %}
+                    {% if watched == False %}
+                        <form method="post" action="{% url 'watchlist' %}?movie_id={{ movie.pk }}">
+                            {% csrf_token %}
+                            <input name="opt" type="hidden" value="add">
+                            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-eye-open"></i>
+                            </button>
+                        </form>
+                    {% else %}
+                        <button class="btn btn-success"><i class="glyphicon glyphicon-eye-open"></i></button>
+                    {% endif %}
                 {% endif %}
                 <h3>Overview</h3>
                 <p>

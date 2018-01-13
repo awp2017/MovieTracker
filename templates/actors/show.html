@@ -8,7 +8,6 @@
     <h4>Movies where he played:</h4>
     <div class="row">
         {% for movie in actor.movie_set.all %}
-
             <div class="col-md-2 tvshow-card-container">
                 <a href="{% url 'movies_show' pk=movie.pk %}">
                     <div class="thumbnail tvshow-card">

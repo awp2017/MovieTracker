@@ -24,17 +24,19 @@ class Index(ListView):
 class MovieDetailView(View):
     def get(self, request, pk):
         movie = Movie.objects.get(id=pk)
+        watched = Movie.objects.get(pk=pk).usermovie_set.filter(user=request.user).exists()
         comments = Comment.objects.filter(movie=pk).order_by('-date')
         return render(
             request,
             'movies/show.html',
-            context={'comments': comments,
-                     'movie': movie}
+            context={ 'comments': comments,
+                      'movie': movie,
+                      'watched': watched }
         )
 
     def post(self, request, pk):
         movie_instance = Movie.objects.get(id=pk)
         user_instance = User.objects.get(id=request.user.id)
-        comment = Comment(movie=movie_instance, user=user_instance, text=request.POST.get('comment',''))
+        comment = Comment(movie=movie_instance, user=user_instance, text=request.POST.get('comment', ''))
         comment.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

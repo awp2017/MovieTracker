@@ -15,6 +15,7 @@ class Index(ListView):
     context_object_name = 'actors'
     paginate_by = 10
 
+
     def get_queryset(self):
         name = self.request.GET.get('actor','')
 
