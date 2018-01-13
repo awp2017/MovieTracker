@@ -7,4 +7,4 @@ from models import *
 admin.site.register(Movie)
 admin.site.register(Keyword)
 admin.site.register(Actor)
-admin.site.register(Watched)
+admin.site.register(UserMovie)

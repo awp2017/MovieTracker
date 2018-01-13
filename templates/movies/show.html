@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+{% block title %} {{ movie.title }} {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <img src={{ movie.poster }}>
+            </div>
+            <div class="col-md-8">
+                <h1>
+                    {{ movie.title }}
+                </h1>
+                <h3>Overview</h3>
+                <p>
+                    {{ movie.overview }}
+                </p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3>
+                            Release Date
+                        </h3>
+                        <p>
+                            {{ movie.release_date }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-2">
+                        <h3>
+                            Budget
+                        </h3>
+                        <p>
+                            {{ movie.budget }}$
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3>
+                            Tagline
+                        </h3>
+                        <p>
+                            {{ movie.tagline }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row-md-2">
+            {% for actor in movie.actors.all %}
+                <div class="col-md-2">
+                    <a href="{% url 'actors_show' pk=actor.id %}">{{ actor.name }}</a>
+                </div>
+            {% endfor %}
+        </div>
+        <hr/>
+        <br/>
+        <div class="row">
+            {% if user.is_authenticated %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            {% endif %}
+
+            <br>
+
+            {% for comment in comments %}
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="thumbnail">
+                            <img class="img-responsive user-photo"
+                                 src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>{{ comment.user.username }}</strong>
+                                <div class="pull-right">
+                                    {{ comment.date }}
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                {{ comment.text }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <form method="post" action="{% url 'watchlist' %}?movie_id={{ movie.pk }}">
+        {% csrf_token %}
+        <input name="opt" type="hidden" value="add">
+        <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-eye-close"></i>
+        </button>
+    </form>
+{% endblock %}

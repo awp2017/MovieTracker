@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %} Movies {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for movie in movies %}
+                  <div class = "col-md-3 col-sm-4 col-xs-6 tvshow-card-container" >
+                    <a href ="{{ movie.id }}">
+                      <div class = "thumbnail tvshow-card" >
+                        <div class="poster-container">
+                            <img class = "tvshow-poster" src = "{{ movie.poster }}" alt = "tvshow-image" >
+                        </div>
+                        <div class = "caption" >
+                          <h4 class = "tvshow-title" >{{ movie.title }}</h4 >
+                        </div >
+                      </div >
+                    </a >
+                  </div >
+            {% endfor %}
+        </div>
+    </div>
+
+     {% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+        {% if page_obj.has_previous %}
+            <a href="/movies?page={{ page_obj.previous_page_number }}"><button class="btn btn-primary">Previous</button></a>
+        {% endif %}
+            <span class="page-current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+            {% if page_obj.has_next %}
+                <a href="/movies?page={{ page_obj.next_page_number }}"><button class="btn btn-primary">Next</button></a>
+            {% endif %}
+        </span>
+     </div>
+    {% endif %}
+{% endblock %}
