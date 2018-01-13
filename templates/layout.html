@@ -87,7 +87,7 @@
             <!-- USER PROFILE MESSAGE -->
             <div class="message">
                 {% if user.is_authenticated %}
-                    Hi, {{ request.user.last_name }} {{ request.user.first_name }}!
+                    Hi, {{ request.user.get_full_name }}!
                 {% else %}
                     Hi, Guest!
                 {% endif %}
@@ -104,17 +104,6 @@
                 <a href="{% url 'movies_index' %}">
                     <i class="glyphicon glyphicon-home"></i>
                     Movies </a>
-            </li>
-            <li>
-                <a href="{% url 'actors_index' %}">
-                    <i class="glyphicon glyphicon-home"></i>
-                    Actors </a>
-            </li>
-            <!-- LINK TO MY ACCOUNT PAGE -->
-            <li>
-                <a href="#">
-                    <i class="glyphicon glyphicon-user"></i>
-                    My Profile</a>
             </li>
             <!-- LINK TO USER'S WATCHLIST -->
             <li>
