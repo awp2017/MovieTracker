@@ -1,1 +1,28 @@
-actors index
+{% extends 'layout.html' %}
+{% block  content %}
+    {% for actor in actors %}
+
+        <a href="{% url 'actors_show' pk=actor.pk %}">
+            {{ actor.name }}
+
+        </a>
+        <hr/>
+    {% endfor %}
+
+
+    {% if is_paginated %}
+        <div class="pagination">
+<span class="page-links">
+{% if page_obj.has_previous %}
+    <a href="/actors?page={{ page_obj.previous_page_number }}">previous</a>
+{% endif %}
+    <span class="page-current">
+Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+</span>
+    {% if page_obj.has_next %}
+        <a href="/actors?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
+</span>
+        </div>
+    {% endif %}
+{% endblock %}
