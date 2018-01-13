@@ -116,7 +116,7 @@ def create_objects(row):
     for actor_data in actors_data:
         actor = Actor.objects.get_or_create(name = actor_data['name'])[0]
         actors.append(actor)
-        # ActorMovie(actor_id=actor.id, movie_id=movie.id, character=actor_data['character']).save()
+        ActorMovie(actor_id=actor.id, movie_id=movie.id, character=actor_data['character']).save()
 
     movie.actors = actors
     movie.save()

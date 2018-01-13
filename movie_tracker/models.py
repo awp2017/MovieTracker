@@ -41,10 +41,10 @@ class Comment(models.Model):
     date = models.DateTimeField(default=datetime.now, blank=True)
 
 
-# class ActorMovie(models.Model):
-#     actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
-#     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-#     character = models.CharField(max_length=200)
+class ActorMovie(models.Model):
+    actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    character = models.CharField(max_length=200)
 
 
 class Watched(models.Model):
