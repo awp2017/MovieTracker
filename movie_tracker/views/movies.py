@@ -18,7 +18,7 @@ class Index(ListView):
         title = self.request.GET.get('movie', '')
         keyword = self.request.GET.get('keyword', '')
 
-        return self.model.objects.filter(title__contains=title, keywords__name__contains=keyword)
+        return self.model.objects.filter(title__icontains=title, keywords__name__icontains=keyword).distinct()
 
 
 class MovieDetailView(DetailView):
