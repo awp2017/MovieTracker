@@ -15,14 +15,14 @@ POSTER_PATH = 'http://image.tmdb.org/t/p/w185/'
 
 
 def load_data():
-    movies_data = pd.read_csv(MOVIES)[:10]
+    movies_data = pd.read_csv(MOVIES)[:40]
 
     # movies_data = decode_data(movies_data)
 
     movies = load_movies(movies_data)
     keywords = load_keywords(movies_data)
 
-    credits = pd.read_csv(CREDITS)[:10]
+    credits = pd.read_csv(CREDITS)[:40]
     # credits = decode_data(credits)
 
     credits['id'] = credits['movie_id']
